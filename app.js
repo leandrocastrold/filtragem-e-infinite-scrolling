@@ -1,3 +1,5 @@
+const postsContainer = document.querySelector('#posts-container')
+
 let page = 1;
 
 //Toda função com async retorna uma promise que encapsula os dados
@@ -16,8 +18,9 @@ const addPostsIntoDOM = async () => {
               <h2 class="post-title">${title}</h2>
             <p class="post-body">${body}</p>
             </div>
-    </div>`)
-    console.log(postsTemplate);
+    </div>`).join('')
+
+    postsContainer.innerHTML += postsTemplate
 }
 
 addPostsIntoDOM();
