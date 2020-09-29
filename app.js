@@ -1,4 +1,6 @@
 const postsContainer = document.querySelector('#posts-container')
+const loaderContainer = document.querySelector('.loader')
+const filterInput = document.querySelector("#filter")
 
 let page = 1;
 
@@ -25,3 +27,33 @@ const addPostsIntoDOM = async () => {
 
 addPostsIntoDOM();
 
+const getNextPosts = () => {
+    page++;
+    addPostsIntoDOM();
+}
+
+const removeLoader = () => {
+    setTimeout(() => {
+        loaderContainer.classList.remove('show')
+        getNextPosts();
+  }, 1000)
+}
+
+const showLoader = () => {
+  loaderContainer.classList.add('show')
+    removeLoader();
+}
+
+window.addEventListener('scroll', () => {
+    //Checará se usuário chegou no fim da página
+    const { clientHeight, scrollHeight, scrollTop } = document.documentElement
+    const isPageBottomAlmostReached = scrollTop + clientHeight >= scrollHeight - 10
+   
+    if (isPageBottomAlmostReached) {
+        showLoader();  
+    } 
+})
+
+filterInput.addEventListener('input', event => {
+    console.log(event);
+})
